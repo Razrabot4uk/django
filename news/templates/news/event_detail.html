@@ -10,7 +10,6 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         padding-bottom: 10px;
-        justify-content: center;
     }
 
     .overflow-auto::-webkit-scrollbar {
@@ -18,20 +17,43 @@
     }
 
     .overflow-auto::-webkit-scrollbar-track {
-        background: #f1f1f1; 
+        background: #f1f1f1;
     }
 
     .overflow-auto::-webkit-scrollbar-thumb {
-        background: #888; 
+        background: #888;
     }
 
     .overflow-auto::-webkit-scrollbar-thumb:hover {
-        background: #555; 
+        background: #555;
     }
 
     .modal img {
         max-width: 100%;
         height: auto;
+    }
+
+    .gallery-item {
+        flex: 0 0 auto;
+        margin-right: 10px;
+    }
+
+    @media (max-width: 767.98px) {
+        .gallery-item {
+            width: 150px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .gallery-item {
+            width: 180px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .gallery-item {
+            width: 200px;
+        }
     }
 </style>
 
@@ -131,10 +153,10 @@
                 <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <h4 class="card-title text-center">Галерея</h4>
-                        <div class="d-flex overflow-auto justify-content-center">
+                        <div class="d-flex overflow-auto">
                             {% for photo in event.photos.all %}
-                                <div class="flex-shrink-0 mr-3">
-                                    <div class="card" style="width: 200px;">
+                                <div class="gallery-item">
+                                    <div class="card">
                                         <a href="#" data-toggle="modal" data-target="#photoModal{{ photo.id }}">
                                             <img src="{{ photo.image.url }}" class="card-img-top img-thumbnail rounded img-fluid" style="max-height: 200px;" alt="{{ photo.description }}">
                                         </a>
