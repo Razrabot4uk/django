@@ -12,10 +12,10 @@
                         <h2 class="card-title text-center">{{ announcement.title }}</h2>
                         <p class="card-text text-center">{{ announcement.description }}</p>
                         <p class="text-muted text-center">Дата публикации: {{ announcement.created_at }}</p>
-                        <div class="d-flex overflow-auto justify-content-center">
+                        <div class="d-flex overflow-auto">
                             {% for image in announcement.images.all %}
-                                <div class="flex-shrink-0 mr-3">
-                                    <img src="{{ image.image.url }}" class="img-fluid rounded" alt="{{ announcement.title }}" style="max-width: 200px; cursor: pointer;" data-toggle="modal" data-target="#imageModal{{ image.id }}">
+                                <div class="gallery-item">
+                                    <img src="{{ image.image.url }}" class="img-fluid rounded" alt="{{ announcement.title }}" style="cursor: pointer;" data-toggle="modal" data-target="#imageModal{{ image.id }}">
                                 </div>
 
                                 <!-- Модальное окно для изображения -->
@@ -42,31 +42,51 @@
         </div>
     </div>
 </div>
-<style type="text/css">
-/* Добавьте этот стиль в ваш основной CSS файл */
-.overflow-auto {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    justify-content: center;
-}
+<style>
+    .overflow-auto {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
 
-.overflow-auto::-webkit-scrollbar {
-    height: 10px;
-}
+    .overflow-auto::-webkit-scrollbar {
+        height: 10px;
+    }
 
-.overflow-auto::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-}
+    .overflow-auto::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-.overflow-auto::-webkit-scrollbar-thumb {
-    background: #888; 
-}
+    .overflow-auto::-webkit-scrollbar-thumb {
+        background: #888;
+    }
 
-.overflow-auto::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-}
+    .overflow-auto::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 
+    .gallery-item {
+        flex: 0 0 auto;
+        margin-right: 10px;
+    }
+
+    @media (max-width: 767.98px) {
+        .gallery-item {
+            width: 150px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .gallery-item {
+            width: 180px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .gallery-item {
+            width: 200px;
+        }
+    }
 </style>
 {% endblock %}
