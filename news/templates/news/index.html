@@ -1,0 +1,109 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4 text-center">Мероприятия</h1>
+    <div class="grid-container">
+        {% for event in upcoming_events %}
+            <div class="grid-item">
+                <a href="{% url 'event_detail' event.id %}" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm rounded">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="card-img-top img-fluid rounded">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h2 class="card-title text-dark">{{ event.title }}</h2>
+                            <p class="card-text text-dark flex-grow-1">{{ event.description|truncatewords_html:30 }}</p>
+                        </div>
+                        <div class="card-footer bg-white border-0">
+                            <small class="text-muted">Пост создан: {{ event.event_date }}</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% empty %}
+            <p>Нет предстоящих мероприятий.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 24px;
+        align-items: start;
+    }
+
+    .grid-item {
+        margin-bottom: 24px;
+    }
+
+    .card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+        object-fit: cover;
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        flex-grow: 1;
+        font-size: 1rem;
+    }
+
+    .text-dark {
+        color: #000 !important;
+    }
+
+    .text-decoration-none {
+        text-decoration: none !important;
+    }
+
+    .card-footer {
+        padding: 15px 20px;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+    }
+
+    @media (max-width: 992px) {
+        .grid-container {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+    }
+
+    @media (max-width: 576px) {
+        .grid-container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
